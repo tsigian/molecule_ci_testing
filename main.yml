@@ -9,6 +9,7 @@
       state: present
       definition: "{{ lookup('file', 'manifests/hello.yml') }}"
       wait: true
+      wait_timeout: 300
   - name: Get 'hello' Job info.
     k8s_info:
       kind: Job
