@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+  - name: Build a kind cluster (wait for control plane).
+    command: >-
+      kind create cluster
+      --wait 30s
+      --name molecule-test
+      --kubeconfig {{ kubeconfig }}
+    changed_when: true

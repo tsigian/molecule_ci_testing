@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: '{{ ansible_playbook_python }}'
+  tasks:
+  - name: Deploy 'hello' Job.
+    k8s:
+      state: present
+      definition: "{{ lookup('file', 'manifests/hello.yml') }}"
+      wait: true
+  - name: Get 'hello' Job info.
+    k8s_info:
+      kind: Job
+      name: hello
+      namespace: default
+    register: jobs
+  - name: Print the structure of the jobs var.
+    debug:
+      var: jobs
+  - name: Assert that 'hello' Job ran successfully.
+    assert:
+      that: jobs['resources'][0]['status']['succeeded'] == 1
