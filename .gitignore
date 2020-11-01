@@ -1,1 +1,2 @@
 kubeconfig-minikube
+molecule/default/verify.yml
