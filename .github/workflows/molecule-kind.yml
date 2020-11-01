@@ -26,6 +26,9 @@ jobs:
           pip3 install molecule docker openshift
           ansible-lint yamllint
 
+      - name: Verify Python3
+        run: python --version 
+
       - name: Run molecule test.
         run: molecule test
         env:
